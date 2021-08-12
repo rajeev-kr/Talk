@@ -31,7 +31,6 @@ A website to Talk!
 ### View Talk
     You can read a Talk here.
 ![](./img/Talk.png)
-
 ### Top Talks
     It contains the top 5 Talks of time ranked by various raking factors not necessarily in order.
 ![](./img/top_pins.png)
