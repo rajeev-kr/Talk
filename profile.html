@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Talk</title>
+    <link rel="stylesheet" href="/css/profile.css">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-storage.js"></script>
+    <script src="/js/profile.js"></script>
+    <script src="/js/gettoptalks.js"></script>
+    <script src="/js/comment.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="toppane" >
+            <button id="logout" class="btn btn-primary btn-block btn-large" onclick=logout()>Logout</button>
+        </div>
+        <div class="leftpane" onload=getdata()>
+            <h1>Hi There!</h1>
+            <img src="" alt="" id="profilePic" class="profilePic"/>
+            <p id="displayName"></p>
+            <p id="email"></p>
+            <p id="emailVerified"></p>
+            <p id="phoneNumber"></p>
+            <p id="photoURL"></p>
+            <p id="uid"></p>
+            <a href="/accountsettings.html">Account Settings</a><br/>
+            <a href="/createtalk.html">Create Talk🗣️</a>
+        </div>
+        <div class="middlepane" onload=gettalks()>
+            <div id="listoftalks" style="display:block">
+                <h1>My Started Talks!</h1>
+                <p><ol id="mytalks"></ol></p>
+            </div>
+            <div id="talk" style="display:none;">
+                <div class="sliderContainer">
+                    <input type="range" min="-10" max="100" value="50" id="pinPercentSelector" class="slider">
+                    <span id="pinPercent"></span>
+                    <button id="pinit" onclick="pinit()" style="float:right" class="pinit">Pin It</button>
+                </div>
+                <script>document.getElementById("pinPercentSelector").oninput = (()=>{document.getElementById("pinPercent").textContent = ' 📌 '+document.getElementById("pinPercentSelector").value;});</script>
+                <h3><p id="talktitle"></p></h3>
+                <p id="contentoftalk"></p>
+                <span id="overallScore"></span>
+                <span id="talkId" style="float: right; display: none;"></span>
+                <button onclick="unpinTalk()" style="float:center" class="unpinTalk">Unpin</button>
+                <button id="loadCommentsAndCommenter" onclick="loadCommentsAndCommenter()" class="loadCommentsAndCommenter" style="float: right;">Load Comments</button>
+            </div>
+            <div id="commenterAndComments" style="display: none;">
+                <div id="commenter">
+                    <hr style="color: rgb(0, 21, 138); height: 1px; border: 0; border-top: 4px solid rgb(0, 29, 90);">
+                    <textarea id = "userComment" placeholder="Add your comments!" style="height: 30px;color:#fff; width: 100%; border: none;border-bottom: 2px solid rgb(2, 50, 122); background-color: transparent; margin-bottom: 5px;margin-top: 5px;resize: none;overflow:hidden;outline: none;"></textarea>
+                    <input type="text" id="linkedTalks" pattern=".{0}|.{20,20}" required title="Must be long as 20 chars!" placeholder="Put your Talk ID" style="height: 30px;color:#fff;background-color:transparent;border: none;border-bottom: 2px solid rgb(2, 50, 122);margin-bottom: 5px;resize: none;overflow:hidden;outline: none;">
+                    <button onclick="commentOnATalk()" style="float:right;" class="commentOnATalk">Comment</button>
+                </div>
+                <div id="comments"><h4 id="commentHeading">Comments</h4>
+                    <ul id="commentlist">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="rightpane">
+          <h1>Top Pins!</h1>
+          <div id="listoftoptalks" style="display:block">
+            <p><ul id="toptalks"></ul></p>
+        </div>
+        </div>
+    </div>
+    <script>
+        firebase.auth().onAuthStateChanged(function(user){
+            if(!user){
+                window.location.href = "login.html";
+            }else{
+                //console.log(user);
+            }
+        });
+    </script>
+</body>
+</html>
