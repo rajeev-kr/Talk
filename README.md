@@ -24,13 +24,13 @@ A website to Talk!
 ![](./img/update_profile.png)
 ### Create Talk
     You can initiate a Talk here with a title and content.
-![](./img/create_Talk.png)
+![](./img/create_talk.png)
 ### My Talks
     Here you can see all of your initiated Talks.
-![](./img/my_Talks.png)
+![](./img/my_talks.png)
 ### View Talk
     You can read a Talk here.
-![](./img/Talk.png)
+![](./img/talk.png)
 ### Top Talks
     It contains the top 5 Talks of time ranked by various raking factors not necessarily in order.
 ![](./img/top_pins.png)
